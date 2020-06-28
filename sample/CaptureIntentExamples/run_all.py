@@ -1,5 +1,6 @@
 from capture_order import CaptureOrder
 from create_order import CreateOrder
+from sample.get_order import GetOrder
 from sample.refund_order import RefundOrder
 
 response = CreateOrder().create_order()
@@ -14,7 +15,6 @@ if response.status_code == 201:
 else:
     print 'Link is unreachable'
     exit(1)
-
 raw_input()
 print 'Capturing Order...'
 capture_id =""
@@ -32,7 +32,10 @@ if response.status_code == 201:
     print 'Links: '
     for link in response.result.links:
         print('\t{}: {}\tCall Type: {}'.format(link.rel, link.href, link.method))
-        
+
+print 'Get Order'
+response = GetOrder().get_order(order_id)
+
 print 'Refunding Order...'
 response = RefundOrder().refund_order(capture_id)
 if response.status_code == 201:
