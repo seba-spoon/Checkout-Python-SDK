@@ -24,14 +24,14 @@ class RefundOrder(PayPalClient):
         request.request_body(self.build_request_body())
         response = self.client.execute(request)
         if debug:
-            print 'Status Code:', response.status_code
-            print 'Status:', response.result.status
-            print 'Order ID:', response.result.id
-            print 'Links:'
+            print('Status Code:', response.status_code)
+            print('Status:', response.result.status)
+            print('Order ID:', response.result.id)
+            print('Links:')
             for link in response.result.links:
                 print('\t{}: {}\tCall Type: {}'.format(link.rel, link.href, link.method))
             json_data = self.object_to_json(response.result)
-            print "json_data: ", json.dumps(json_data,indent=4)
+            print("json_data: ", json.dumps(json_data,indent=4))
         return response
 
 """This is the driver function which invokes the refund capture function. Capture Id value should be replaced with the valid capture id. """

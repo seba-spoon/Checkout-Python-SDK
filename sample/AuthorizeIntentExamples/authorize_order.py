@@ -17,21 +17,21 @@ class AuthorizeOrder(PayPalClient):
         request.request_body(self.build_request_body())
         response = self.client.execute(request)
         if debug:
-            print 'Status Code: ', response.status_code
-            print 'Status: ', response.result.status
-            print 'Order ID: ', response.result.id
-            print 'Authorization ID:', response.result.purchase_units[0].payments.authorizations[0].id
-            print 'Links:'
+            print('Status Code: ', response.status_code)
+            print('Status: ', response.result.status)
+            print('Order ID: ', response.result.id)
+            print('Authorization ID:', response.result.purchase_units[0].payments.authorizations[0].id)
+            print('Links:')
             for link in response.result.links:
                 print('\t{}: {}\tCall Type: {}'.format(link.rel, link.href, link.method))
-            print 'Authorization Links:'
+            print('Authorization Links:')
             for link in response.result.purchase_units[0].payments.authorizations[0].links:
                 print('\t{}: {}\tCall Type: {}'.format(link.rel, link.href, link.method))
-            print "Buyer:"
-            print "\tEmail Address: {}\n\tPhone Number: {}".format(response.result.payer.email_address,
-                                                                   response.result.payer.phone.phone_number.national_number)
+            print("Buyer:")
+            print("\tEmail Address: {}\n\tPhone Number: {}".format(response.result.payer.email_address,
+                                                                   response.result.payer.phone.phone_number.national_number))
             json_data = self.object_to_json(response.result)
-            print "json_data: ", json.dumps(json_data,indent=4)
+            print("json_data: ", json.dumps(json_data,indent=4))
         return response
 
 """This is the driver function which invokes the authorize_order function with valid approved order id to authorize

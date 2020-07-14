@@ -12,22 +12,22 @@ class CaptureOrder(PayPalClient):
         request = OrdersCaptureRequest(order_id)
         response = self.client.execute(request)
         if debug:
-            print 'Status Code: ', response.status_code
-            print 'Status: ', response.result.status
-            print 'Order ID: ', response.result.id
-            print 'Links: '
+            print('Status Code: ', response.status_code)
+            print('Status: ', response.result.status)
+            print('Order ID: ', response.result.id)
+            print('Links: ')
             for link in response.result.links:
                 print('\t{}: {}\tCall Type: {}'.format(link.rel, link.href, link.method))
-            print 'Capture Ids: '
+            print('Capture Ids: ')
             for purchase_unit in response.result.purchase_units:
                 for capture in purchase_unit.payments.captures:
-                    print '\t', capture.id
-            print "Buyer:"
-            print "\tEmail Address: {}\n\tName: {}\n\tPhone Number: {}".format(response.result.payer.email_address,
+                    print('\t', capture.id)
+            print("Buyer:")
+            print("\tEmail Address: {}\n\tName: {}\n\tPhone Number: {}".format(response.result.payer.email_address,
                                                                            response.result.payer.name.given_name + " " + response.result.payer.name.surname,
-                                                                           response.result.payer.phone.phone_number.national_number)
+                                                                           response.result.payer.phone.phone_number.national_number))
             json_data = self.object_to_json(response.result)
-            print "json_data: ", json.dumps(json_data,indent=4)
+            print("json_data: ", json.dumps(json_data,indent=4))
         return response
 
 
